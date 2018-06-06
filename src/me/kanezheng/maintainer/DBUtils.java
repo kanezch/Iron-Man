@@ -1,3 +1,5 @@
+package me.kanezheng.maintainer;
+
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
@@ -11,8 +13,10 @@ public class DBUtils {
 
     public static Connection getConnection() throws Exception {
 
+        System.out.println(DBUtils.class.getResource("").getPath());
+
         Properties properties = new Properties();
-        InputStream inStream = DBUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
+        InputStream inStream = DBUtils.class.getClassLoader().getResourceAsStream("me/kanezheng/maintainer/jdbc.properties");
         properties.load(inStream);
 
         String url = properties.getProperty("url");

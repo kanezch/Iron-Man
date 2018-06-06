@@ -1,3 +1,7 @@
+package me.kanezheng.maintainer;
+
+import java.util.Objects;
+
 public class MicroService {
     private String msname;
     private String msteam;
@@ -44,5 +48,24 @@ public class MicroService {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {return false;}
+        MicroService that = (MicroService) o;
+        return Objects.equals(msname, that.msname) &&
+                Objects.equals(msteam, that.msteam) &&
+                Objects.equals(msmaintainer, that.msmaintainer) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(msname, msteam, msmaintainer, description);
     }
 }
