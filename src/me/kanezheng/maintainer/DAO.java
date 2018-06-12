@@ -12,7 +12,7 @@ public class DAO {
      * 新增微服务
      * @param ms
      * @return rs
-     * @throws Exception
+     * @throws Exception e
      */
     public int insertOne(MicroService ms) throws Exception {
         int result = 0;
@@ -44,7 +44,7 @@ public class DAO {
         int result = 0;
         Connection conn = DBUtils.getConnection();
 
-        String sql = "DELETE FROM msmaintain_tbl where msname=?";
+        String sql = "DELETE FROM msmaintain_tbl where ms_name=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
         psmt.setString(1, msname);
 
@@ -65,7 +65,7 @@ public class DAO {
         MicroService ms = null;
         Connection conn = DBUtils.getConnection();
 
-        String sql = "SELECT FROM msmaintain_tbl where msname=?";
+        String sql = "SELECT * FROM msmaintain_tbl where ms_name=?";
         PreparedStatement psmt = conn.prepareStatement(sql);
         psmt.setString(1, msname);
 
