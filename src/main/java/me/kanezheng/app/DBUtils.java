@@ -1,4 +1,4 @@
-package me.kanezheng.maintainer;
+package me.kanezheng.app;
 
 import java.io.InputStream;
 import java.sql.*;
