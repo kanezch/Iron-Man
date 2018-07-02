@@ -1,40 +1,40 @@
 package me.kanezheng.app;
 
 public class MicroService {
-    private String msname;
-    private String msteam;
-    private String msmaintainer;
-    private String description;
+    private String msName;
+    private String msTeam;
+    private String msMaintainer;
+    private String msDesc;
 
-    public String getMsname() {
-        return msname;
+    public String getMsName() {
+        return msName;
     }
 
-    public void setMsname(String msname) {
-        this.msname = msname;
+    public void setMsName(String msName) {
+        this.msName = msName;
     }
 
-    public String getMsteam() {
-        return msteam;
+    public String getMsTeam() {
+        return msTeam;
     }
 
-    public void setMsteam(String msteam) {
-        this.msteam = msteam;
+    public void setMsTeam(String msTeam) {
+        this.msTeam = msTeam;
     }
 
-    public String getMsmaintainer() {
-        return msmaintainer;
+    public String getMsMaintainer() {
+        return msMaintainer;
     }
 
-    public void setMsmaintainer(String msmaintainer) {
-        this.msmaintainer = msmaintainer;
+    public void setMsMaintainer(String msMaintainer) {
+        this.msMaintainer = msMaintainer;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMsDesc() {
+        return msDesc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMsDesc(String msDesc) {
+        this.msDesc = msDesc;
     }
 }
