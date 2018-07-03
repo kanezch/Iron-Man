@@ -27,12 +27,18 @@ public class MicroServiceController {
     public String addMicroService(@RequestParam(value = "msName")String msName,
                                   @RequestParam(value = "msTeam")String msTeam,
                                   @RequestParam(value = "msMaintainer")String msMaintainer,
-                                  @RequestParam(value = "msDescription")String msDesc){
+                                  @RequestParam(value = "msDesc")String msDesc,
+                                  @RequestParam(value = "codeLang")String codeLang,
+                                  @RequestParam(value = "bIsRestWS")Boolean bIsRestWS,
+                                  @RequestParam(value = "servicePort")int servicePort){
         MicroService ms = new MicroService();
         ms.setMsName(msName);
         ms.setMsTeam(msTeam);
         ms.setMsMaintainer(msMaintainer);
         ms.setMsDesc(msDesc);
+        ms.setCodeLang(codeLang);
+        ms.setbIsRestWS(bIsRestWS);
+        ms.setServicePort(servicePort);
 
         int c = msService.add(ms);
         if (c==1){
@@ -46,12 +52,18 @@ public class MicroServiceController {
     public String updateMicroService(@PathVariable("msName")String msName,
                                      @RequestParam(value = "msTeam")String msTeam,
                                      @RequestParam(value = "msMaintainer")String msMaintainer,
-                                     @RequestParam(value = "msDesc")String msDesc){
+                                     @RequestParam(value = "msDesc")String msDesc,
+                                     @RequestParam(value = "codeLang")String codeLang,
+                                     @RequestParam(value = "bIsRestWS")Boolean bIsRestWS,
+                                     @RequestParam(value = "servicePort")int servicePort){
         MicroService ms = new MicroService();
         ms.setMsName(msName);
         ms.setMsTeam(msTeam);
         ms.setMsMaintainer(msMaintainer);
         ms.setMsDesc(msDesc);
+        ms.setCodeLang(codeLang);
+        ms.setbIsRestWS(bIsRestWS);
+        ms.setServicePort(servicePort);
 
         int c = msService.update(ms);
         if (c==1){

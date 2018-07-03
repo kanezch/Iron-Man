@@ -23,13 +23,13 @@ public class MsServiceImpl implements IMsService{
     }
 
     @Override
-    public int delete(String msname) {
-        return microServiceDAO.delete(msname);
+    public int delete(String msName) {
+        return microServiceDAO.delete(msName);
     }
 
     @Override
-    public MicroService findMicroServiceByName(String msname) {
-        return microServiceDAO.findMicroServiceByName(msname);
+    public MicroService findMicroServiceByName(String msName) {
+        return microServiceDAO.findMicroServiceByName(msName);
     }
 
     @Override

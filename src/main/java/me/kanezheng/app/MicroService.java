@@ -5,6 +5,9 @@ public class MicroService {
     private String msTeam;
     private String msMaintainer;
     private String msDesc;
+    private String codeLang;
+    private Boolean bIsRestWS;
+    private int servicePort;
 
     public String getMsName() {
         return msName;
@@ -37,4 +40,16 @@ public class MicroService {
     public void setMsDesc(String msDesc) {
         this.msDesc = msDesc;
     }
+
+    public String getCodeLang() { return codeLang; }
+
+    public void setCodeLang(String codeLang) { this.codeLang = codeLang; }
+
+    public Boolean getbIsRestWS() { return bIsRestWS; }
+
+    public void setbIsRestWS(Boolean bIsRestWS) { this.bIsRestWS = bIsRestWS; }
+
+    public int getServicePort() { return servicePort; }
+
+    public void setServicePort(int servicePort) { this.servicePort = servicePort; }
 }

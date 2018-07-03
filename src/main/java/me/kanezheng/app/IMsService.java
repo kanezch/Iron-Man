@@ -11,7 +11,7 @@ import java.util.List;
 public interface IMsService {
     int add(MicroService ms);
     int update(MicroService ms);
-    int delete(String msname);
-    MicroService findMicroServiceByName(String msname);
+    int delete(String msName);
+    MicroService findMicroServiceByName(String msName);
     List<MicroService> findMicroServiceList();
 }
