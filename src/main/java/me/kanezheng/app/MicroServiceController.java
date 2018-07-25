@@ -3,34 +3,47 @@ package me.kanezheng.app;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value = "/microservices")
+@RequestMapping(value = "/v1/microservices")
 public class MicroServiceController {
 
     @Autowired
     IMsService msService;
 
     @RequestMapping(value="",method = RequestMethod.GET)
-    public  List<MicroService> getMicroServices(){
-        return msService.findMicroServiceList();
+    public  ResponseEntity<List<MicroService>> getMicroServices(){
+
+        System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh!");
+
+        List<MicroService> msList = msService.findMicroServiceList();
+
+        return new ResponseEntity(msList, HttpStatus.OK);
     }
 
     @RequestMapping(value="/{msName}", method = RequestMethod.GET)
-    public MicroService getMicroServiceByName(@PathVariable("msName") String msName){
-        return  msService.findMicroServiceByName(msName);
+    public ResponseEntity<MicroService> getMicroServiceByName(@PathVariable("msName") String msName){
+
+        MicroService m = msService.findMicroServiceByName(msName);
+        if (null == m){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }else {
+            return new ResponseEntity(m, HttpStatus.OK);
+        }
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String addMicroService(@RequestParam(value = "msName")String msName,
-                                  @RequestParam(value = "msTeam")String msTeam,
-                                  @RequestParam(value = "msMaintainer")String msMaintainer,
-                                  @RequestParam(value = "msDesc")String msDesc,
-                                  @RequestParam(value = "codeLang")String codeLang,
-                                  @RequestParam(value = "bIsRestWS")Boolean bIsRestWS,
-                                  @RequestParam(value = "servicePort")int servicePort){
+    public ResponseEntity addMicroService(@RequestParam(value = "msName")String msName,
+                                                  @RequestParam(value = "msTeam")String msTeam,
+                                                  @RequestParam(value = "msMaintainer")String msMaintainer,
+                                                  @RequestParam(value = "msDesc")String msDesc,
+                                                  @RequestParam(value = "codeLang")String codeLang,
+                                                  @RequestParam(value = "bIsRestWS")Boolean bIsRestWS,
+                                                  @RequestParam(value = "servicePort")int servicePort){
         MicroService ms = new MicroService();
         ms.setMsName(msName);
         ms.setMsTeam(msTeam);
@@ -41,21 +54,21 @@ public class MicroServiceController {
         ms.setServicePort(servicePort);
 
         int c = msService.add(ms);
-        if (c==1){
-            return ms.toString();
+        if (c == 1){
+            return new ResponseEntity(HttpStatus.CREATED);
         }else {
-            return "fail";
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(value = "/{msName}", method = RequestMethod.PUT)
-    public String updateMicroService(@PathVariable("msName")String msName,
-                                     @RequestParam(value = "msTeam")String msTeam,
-                                     @RequestParam(value = "msMaintainer")String msMaintainer,
-                                     @RequestParam(value = "msDesc")String msDesc,
-                                     @RequestParam(value = "codeLang")String codeLang,
-                                     @RequestParam(value = "bIsRestWS")Boolean bIsRestWS,
-                                     @RequestParam(value = "servicePort")int servicePort){
+    public ResponseEntity updateMicroService(@PathVariable("msName")String msName,
+                                             @RequestParam(value = "msTeam")String msTeam,
+                                             @RequestParam(value = "msMaintainer")String msMaintainer,
+                                             @RequestParam(value = "msDesc")String msDesc,
+                                             @RequestParam(value = "codeLang")String codeLang,
+                                             @RequestParam(value = "bIsRestWS")Boolean bIsRestWS,
+                                             @RequestParam(value = "servicePort")int servicePort){
         MicroService ms = new MicroService();
         ms.setMsName(msName);
         ms.setMsTeam(msTeam);
@@ -66,21 +79,21 @@ public class MicroServiceController {
         ms.setServicePort(servicePort);
 
         int c = msService.update(ms);
-        if (c==1){
-            return ms.toString();
+        if (c == 1){
+            return new ResponseEntity(HttpStatus.OK);
         }else {
-            return "fail";
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 
 
     @RequestMapping(value = "/{msName}", method = RequestMethod.DELETE)
-    public String deleteMicroService(@PathVariable("msName")String msName){
+    public ResponseEntity deleteMicroService(@PathVariable("msName")String msName){
        int c = msService.delete(msName);
-        if (c==1){
-            return "success";
+        if (c == 1){
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }else {
-            return "fail";
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }

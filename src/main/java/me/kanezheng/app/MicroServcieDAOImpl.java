@@ -65,7 +65,6 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
                 ms.setServicePort((int) rowMap.get("serviceport"));
             }
 
-
             list.add(ms);
         }
 
