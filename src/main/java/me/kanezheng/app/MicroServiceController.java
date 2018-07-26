@@ -18,8 +18,6 @@ public class MicroServiceController {
     @RequestMapping(value="",method = RequestMethod.GET)
     public  ResponseEntity<List<MicroService>> getMicroServices(){
 
-        System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh!");
-
         List<MicroService> msList = msService.findMicroServiceList();
 
         return new ResponseEntity(msList, HttpStatus.OK);
