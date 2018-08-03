@@ -52,4 +52,17 @@ public class MicroService {
     public int getServicePort() { return servicePort; }
 
     public void setServicePort(int servicePort) { this.servicePort = servicePort; }
+
+    @Override
+    public String toString() {
+        return "MicroService{" +
+                "msName='" + msName + '\'' +
+                ", msTeam='" + msTeam + '\'' +
+                ", msMaintainer='" + msMaintainer + '\'' +
+                ", msDesc='" + msDesc + '\'' +
+                ", codeLang='" + codeLang + '\'' +
+                ", bIsRestWS=" + bIsRestWS +
+                ", servicePort=" + servicePort +
+                '}';
+    }
 }
