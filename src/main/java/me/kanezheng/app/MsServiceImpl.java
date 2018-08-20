@@ -33,7 +33,7 @@ public class MsServiceImpl implements IMsService{
     }
 
     @Override
-    public List<MicroService> findMicroServiceList() {
-        return microServiceDAO.findMicroServiceList();
+    public FindResultResponse findPageAble(int pageNum, int pageSize) {
+        return microServiceDAO.findPageAble(pageNum, pageSize);
     }
 }

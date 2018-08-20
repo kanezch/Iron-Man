@@ -13,5 +13,5 @@ public interface IMsService {
     int update(MicroService ms);
     int delete(String msName);
     MicroService findMicroServiceByName(String msName);
-    List<MicroService> findMicroServiceList();
+    FindResultResponse findPageAble(int pageNum, int pageSize);
 }

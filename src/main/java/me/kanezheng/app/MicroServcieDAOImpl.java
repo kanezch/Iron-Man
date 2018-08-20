@@ -74,11 +74,56 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
         }
     }
     
-    @Override
-    public List<MicroService> findMicroServiceList () {
-        ArrayList<MicroService> list = new ArrayList<>();
-        List rows = jdbcTemplate.queryForList("SELECT * FROM MicroService");
+//    @Override
+//    public List<MicroService> findMicroServiceList () {
+//        ArrayList<MicroService> list = new ArrayList<>();
+//        List rows = jdbcTemplate.queryForList("SELECT * FROM MicroService");
+//
+//        for (Object item : rows)
+//        {
+//            Map rowMap = (Map) item;
+//            MicroService ms = new MicroService();
+//            ms.setMsName((String) rowMap.get("name"));
+//            ms.setMsTeam((String) rowMap.get("team"));
+//            ms.setMsMaintainer((String) rowMap.get("maintainer"));
+//            ms.setMsDesc((String) rowMap.get("description"));
+//            ms.setCodeLang((String) rowMap.get("codelanguage"));
+//
+//            Boolean bIsRestWS = (Boolean) rowMap.get("isrestwebservice");
+//            ms.setbIsRestWS(bIsRestWS);
+//
+//            if(bIsRestWS){
+//                ms.setServicePort((int) rowMap.get("serviceport"));
+//            }else {
+//                ms.setServicePort(-1);
+//            }
+//
+//            list.add(ms);
+//        }
+//
+//        return list;
+//    }
 
+    public FindResultResponse findPageAble (int pageNum, int pageSize) {
+
+        /* 查询总数 */
+        String sql = "SELECT COUNT(*) FROM MicroService";
+        int totalCount = jdbcTemplate.queryForObject(sql, Integer.class);
+
+        /* 基于当前的pageSize计算出总页数 */
+        int totalPageNum = (int)Math.ceil((double)totalCount / (double)pageSize);
+
+        /* 用StringBuilder拼装分页查询sql语句 */
+        StringBuilder sqlSb = new StringBuilder("SELECT * FROM MicroService LIMIT ");
+        int offSet = (pageNum - 1) * pageSize;
+        sqlSb.append(offSet);
+        sqlSb.append(",");
+        sqlSb.append(pageSize);
+        sql = sqlSb.toString();
+
+        System.out.println(sql);
+        ArrayList<MicroService> list = new ArrayList<>();
+        List rows = jdbcTemplate.queryForList(sql);
         for (Object item : rows)
         {
             Map rowMap = (Map) item;
@@ -99,9 +144,18 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
             }
 
             list.add(ms);
+
+            System.out.println(ms.toString());
         }
 
-        return list;
+        System.out.println("list size is:" + list.size());
 
+        FindResultResponse rs  = new FindResultResponse();
+        rs.setPageNum(pageNum);
+        rs.setPageSize(pageSize);
+        rs.setTotalCount(totalCount);
+        rs.setTotalPageNum(totalPageNum);
+        rs.setResultSet(list);
+        return rs;
     }
 }

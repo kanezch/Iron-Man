@@ -16,11 +16,11 @@ public class MicroServiceController {
     IMsService msService;
 
     @RequestMapping(value="",method = RequestMethod.GET)
-    public  ResponseEntity<List<MicroService>> getMicroServices(){
+    public  ResponseEntity<FindResultResponse> getMicroServices(@RequestParam(value = "pageNum")int pageNum,
+                                                                @RequestParam(value = "pageSize")int pagaSize){
 
-        List<MicroService> msList = msService.findMicroServiceList();
-
-        return new ResponseEntity(msList, HttpStatus.OK);
+        FindResultResponse resultResponse = msService.findPageAble(pageNum,pagaSize);
+        return new ResponseEntity(resultResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value="/{msName}", method = RequestMethod.GET)
