@@ -7,10 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 @RestController
 @RequestMapping(value = "/v1/microservices")
 public class MicroServiceController {
+
+    private static final Logger logger = LogManager.getLogger(MicroServiceController.class);
 
     @Autowired
     IMsService msService;
@@ -20,6 +25,9 @@ public class MicroServiceController {
                                                                 @RequestParam(value = "pageSize")int pagaSize){
 
         FindResultResponse resultResponse = msService.findPageAble(pageNum,pagaSize);
+
+
+        logger.info("Get microServices succeed!");
         return new ResponseEntity(resultResponse, HttpStatus.OK);
     }
 
@@ -28,8 +36,10 @@ public class MicroServiceController {
 
         MicroService m = msService.findMicroServiceByName(msName);
         if (null == m){
+
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }else {
+
             return new ResponseEntity(m, HttpStatus.OK);
         }
     }
@@ -53,6 +63,7 @@ public class MicroServiceController {
 
         int c = msService.add(ms);
         if (c == 1){
+            logger.info("Add new microService succeed!");
             return new ResponseEntity(HttpStatus.CREATED);
         }else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

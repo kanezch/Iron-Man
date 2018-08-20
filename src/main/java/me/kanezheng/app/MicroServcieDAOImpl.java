@@ -144,11 +144,7 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
             }
 
             list.add(ms);
-
-            System.out.println(ms.toString());
         }
-
-        System.out.println("list size is:" + list.size());
 
         FindResultResponse rs  = new FindResultResponse();
         rs.setPageNum(pageNum);
