@@ -7,7 +7,7 @@ public class MicroService {
     private String msDesc;
     private String codeLang;
     private Boolean bIsRestWS;
-    private int servicePort;
+    private Integer servicePort;
 
     public String getMsName() {
         return msName;
@@ -49,9 +49,9 @@ public class MicroService {
 
     public void setbIsRestWS(Boolean bIsRestWS) { this.bIsRestWS = bIsRestWS; }
 
-    public int getServicePort() { return servicePort; }
+    public Integer getServicePort() { return servicePort; }
 
-    public void setServicePort(int servicePort) { this.servicePort = servicePort; }
+    public void setServicePort(Integer servicePort) { this.servicePort = servicePort; }
 
     @Override
     public String toString() {

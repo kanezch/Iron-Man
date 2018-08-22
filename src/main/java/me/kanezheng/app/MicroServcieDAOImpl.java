@@ -14,7 +14,7 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
     @Override
     public int add(MicroService ms){
         String sql = "INSERT INTO MicroService (name, team, maintainer, description, " +
-                     "codelanguage, isrestwebservice, serviceport) VALUES (?,?,?,?,?,?)";
+                     "codelanguage, isrestwebservice, serviceport) VALUES (?,?,?,?,?,?,?)";
         Object args[] = {ms.getMsName(),ms.getMsTeam(),ms.getMsMaintainer(),ms.getMsDesc(),
                          ms.getCodeLang(),ms.getbIsRestWS(),ms.getServicePort()};
 
@@ -73,37 +73,8 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
             return ms;
         }
     }
-    
-//    @Override
-//    public List<MicroService> findMicroServiceList () {
-//        ArrayList<MicroService> list = new ArrayList<>();
-//        List rows = jdbcTemplate.queryForList("SELECT * FROM MicroService");
-//
-//        for (Object item : rows)
-//        {
-//            Map rowMap = (Map) item;
-//            MicroService ms = new MicroService();
-//            ms.setMsName((String) rowMap.get("name"));
-//            ms.setMsTeam((String) rowMap.get("team"));
-//            ms.setMsMaintainer((String) rowMap.get("maintainer"));
-//            ms.setMsDesc((String) rowMap.get("description"));
-//            ms.setCodeLang((String) rowMap.get("codelanguage"));
-//
-//            Boolean bIsRestWS = (Boolean) rowMap.get("isrestwebservice");
-//            ms.setbIsRestWS(bIsRestWS);
-//
-//            if(bIsRestWS){
-//                ms.setServicePort((int) rowMap.get("serviceport"));
-//            }else {
-//                ms.setServicePort(-1);
-//            }
-//
-//            list.add(ms);
-//        }
-//
-//        return list;
-//    }
 
+    @Override
     public FindResultResponse findPageAble (int pageNum, int pageSize) {
 
         /* 查询总数 */
@@ -121,7 +92,6 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
         sqlSb.append(pageSize);
         sql = sqlSb.toString();
 
-        System.out.println(sql);
         ArrayList<MicroService> list = new ArrayList<>();
         List rows = jdbcTemplate.queryForList(sql);
         for (Object item : rows)
@@ -138,7 +108,8 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
             ms.setbIsRestWS(bIsRestWS);
 
             if(bIsRestWS){
-                ms.setServicePort((int) rowMap.get("serviceport"));
+                Number num = (Number)rowMap.get("serviceport");
+                ms.setServicePort(num.intValue());
             }else {
                 ms.setServicePort(-1);
             }

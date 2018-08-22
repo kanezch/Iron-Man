@@ -22,9 +22,9 @@ public class MicroServiceController {
 
     @RequestMapping(value="",method = RequestMethod.GET)
     public  ResponseEntity<FindResultResponse> getMicroServices(@RequestParam(value = "pageNum")int pageNum,
-                                                                @RequestParam(value = "pageSize")int pagaSize){
+                                                                @RequestParam(value = "pageSize")int pageSize){
 
-        FindResultResponse resultResponse = msService.findPageAble(pageNum,pagaSize);
+        FindResultResponse resultResponse = msService.findPageAble(pageNum,pageSize);
 
 
         logger.info("Get microServices succeed!");
