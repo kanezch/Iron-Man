@@ -1,11 +1,35 @@
 package me.kanezheng.app;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class MicroService {
+
+    @NotNull(message = "参数msName不能为空")
+    @Size(min=2, max = 20, message="微服务名字长度不应小于2字符，同时不应大于20字符")
     private String msName;
+
+    @NotNull(message = "参数msTeam不能为空")
+    @Size(min=2, max = 20, message="微服务所属团队长度不应小于2字符，同时不应大于20字符")
     private String msTeam;
+
+    @NotNull(message = "参数msMaintainer不能为空")
+    @Size(min=2, max = 20, message="微服务维护者名字长度不应小于2字符，同时不应大于20字符")
     private String msMaintainer;
+
+    @NotNull(message = "参数msDesc不能为空")
+    @Size(min=2, max = 255, message="微服务描述信息长度不应小于2字符，同时不应大于255字符")
     private String msDesc;
+
+    @NotNull(message = "参数codeLang不能为空")
+    @Size(min=1, max = 20, message="微服务编程语言不应小于2字符，同时不应大于20字符")
     private String codeLang;
+
+    @NotNull (message = "参数bIsRestWS不能为空")
+    @Min(value = 0, message = "bIsRestWS必须为0或1")
+    @Max(value = 1, message = "bIsRestWS必须为0或1")
     private Boolean bIsRestWS;
     private Integer servicePort;
 

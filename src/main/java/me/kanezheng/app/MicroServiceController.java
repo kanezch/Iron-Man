@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping(value = "/v1/microservices")
@@ -45,25 +47,13 @@ public class MicroServiceController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity addMicroService(@RequestParam(value = "msName")String msName,
-                                                  @RequestParam(value = "msTeam")String msTeam,
-                                                  @RequestParam(value = "msMaintainer")String msMaintainer,
-                                                  @RequestParam(value = "msDesc")String msDesc,
-                                                  @RequestParam(value = "codeLang")String codeLang,
-                                                  @RequestParam(value = "bIsRestWS")Boolean bIsRestWS,
-                                                  @RequestParam(value = "servicePort")int servicePort){
-        MicroService ms = new MicroService();
-        ms.setMsName(msName);
-        ms.setMsTeam(msTeam);
-        ms.setMsMaintainer(msMaintainer);
-        ms.setMsDesc(msDesc);
-        ms.setCodeLang(codeLang);
-        ms.setbIsRestWS(bIsRestWS);
-        ms.setServicePort(servicePort);
+    public ResponseEntity addMicroService(@Valid @RequestBody MicroService ms){
+
+        /* 这里要想办法优化掉，避免字符串拼接 */
+        logger.info("Add new microservice:"+ ms.toString());
 
         int c = msService.add(ms);
         if (c == 1){
-            logger.info("Add new microService succeed!");
             return new ResponseEntity(HttpStatus.CREATED);
         }else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
