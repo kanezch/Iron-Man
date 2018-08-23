@@ -23,9 +23,10 @@ public class MicroServiceController {
     IMsService msService;
 
     @RequestMapping(value="",method = RequestMethod.GET)
-    public  ResponseEntity<FindResultResponse> getMicroServices(@RequestParam(value = "pageNum")int pageNum,
-                                                                @RequestParam(value = "pageSize")int pageSize){
+    public  ResponseEntity<FindResultResponse> getMicroServices(@RequestParam(value = "pageNum")Integer pageNum,
+                                                                @RequestParam(value = "pageSize")Integer pageSize){
 
+        logger.info("Get all microservices:" + "pageNum=" + pageNum + ", pageSize=" + pageSize);
         FindResultResponse resultResponse = msService.findPageAble(pageNum,pageSize);
 
 
@@ -39,7 +40,7 @@ public class MicroServiceController {
         MicroService m = msService.findMicroServiceByName(msName);
         if (null == m){
 
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            throw new MicroServiceNotFoundException("Not Found!");
         }else {
 
             return new ResponseEntity(m, HttpStatus.OK);
@@ -49,8 +50,7 @@ public class MicroServiceController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity addMicroService(@Valid @RequestBody MicroService ms){
 
-        /* 这里要想办法优化掉，避免字符串拼接 */
-        logger.info("Add new microservice:"+ ms.toString());
+        logger.info("Add new microservice:{}", ms.toString());
 
         int c = msService.add(ms);
         if (c == 1){
@@ -61,22 +61,9 @@ public class MicroServiceController {
     }
 
     @RequestMapping(value = "/{msName}", method = RequestMethod.PUT)
-    public ResponseEntity updateMicroService(@PathVariable("msName")String msName,
-                                             @RequestParam(value = "msTeam")String msTeam,
-                                             @RequestParam(value = "msMaintainer")String msMaintainer,
-                                             @RequestParam(value = "msDesc")String msDesc,
-                                             @RequestParam(value = "codeLang")String codeLang,
-                                             @RequestParam(value = "bIsRestWS")Boolean bIsRestWS,
-                                             @RequestParam(value = "servicePort")int servicePort){
-        MicroService ms = new MicroService();
-        ms.setMsName(msName);
-        ms.setMsTeam(msTeam);
-        ms.setMsMaintainer(msMaintainer);
-        ms.setMsDesc(msDesc);
-        ms.setCodeLang(codeLang);
-        ms.setbIsRestWS(bIsRestWS);
-        ms.setServicePort(servicePort);
+    public ResponseEntity updateMicroService(@Valid @RequestBody MicroService ms){
 
+        logger.info("Update microservice:{}", ms.toString());
         int c = msService.update(ms);
         if (c == 1){
             return new ResponseEntity(HttpStatus.OK);

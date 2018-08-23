@@ -28,8 +28,6 @@ public class MicroService {
     private String codeLang;
 
     @NotNull (message = "参数bIsRestWS不能为空")
-    @Min(value = 0, message = "bIsRestWS必须为0或1")
-    @Max(value = 1, message = "bIsRestWS必须为0或1")
     private Boolean bIsRestWS;
     private Integer servicePort;
 
