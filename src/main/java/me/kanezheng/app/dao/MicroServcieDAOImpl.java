@@ -1,5 +1,7 @@
-package me.kanezheng.app;
+package me.kanezheng.app.dao;
 
+import me.kanezheng.app.response.FindResultResponse;
+import me.kanezheng.app.model.MicroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

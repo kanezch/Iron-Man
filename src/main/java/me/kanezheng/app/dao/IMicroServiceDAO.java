@@ -1,6 +1,7 @@
-package me.kanezheng.app;
+package me.kanezheng.app.dao;
 
-import java.util.List;
+import me.kanezheng.app.response.FindResultResponse;
+import me.kanezheng.app.model.MicroService;
 
 /**
  * Created by
@@ -8,7 +9,7 @@ import java.util.List;
  * @author kane
  * @date 2018/6/30
  */
-public interface IMsService {
+public interface IMicroServiceDAO {
     int add(MicroService ms);
     int update(MicroService ms);
     int delete(String msName);

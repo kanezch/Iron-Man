@@ -1,4 +1,4 @@
-package me.kanezheng.app;
+package me.kanezheng.app.exception;
 
 import java.util.Date;
 

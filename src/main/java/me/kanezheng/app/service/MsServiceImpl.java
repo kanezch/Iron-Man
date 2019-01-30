@@ -1,10 +1,10 @@
-package me.kanezheng.app;
+package me.kanezheng.app.service;
 
+import me.kanezheng.app.response.FindResultResponse;
+import me.kanezheng.app.dao.IMicroServiceDAO;
+import me.kanezheng.app.model.MicroService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class MsServiceImpl implements IMsService{

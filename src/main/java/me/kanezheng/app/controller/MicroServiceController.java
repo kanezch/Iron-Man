@@ -1,7 +1,11 @@
-package me.kanezheng.app;
+package me.kanezheng.app.controller;
 
-import java.util.*;
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import me.kanezheng.app.response.FindResultResponse;
+import me.kanezheng.app.service.IMsService;
+import me.kanezheng.app.model.MicroService;
+import me.kanezheng.app.exception.MicroServiceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.validation.Valid;
 
 
+@Api(value="MicroService Management System", description="Operations pertaining to microservice in MicroService Management System")
 @RestController
 @RequestMapping(value = "/v1/microservices")
 public class MicroServiceController {
@@ -22,6 +27,7 @@ public class MicroServiceController {
     @Autowired
     IMsService msService;
 
+    @ApiOperation(value = "View a list of available MicroServices", response = ResponseEntity.class)
     @RequestMapping(value="",method = RequestMethod.GET)
     public  ResponseEntity<FindResultResponse> getMicroServices(@RequestParam(value = "pageNum")Integer pageNum,
                                                                 @RequestParam(value = "pageSize")Integer pageSize){
@@ -33,6 +39,7 @@ public class MicroServiceController {
         return new ResponseEntity(resultResponse, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get a MicroService by name")
     @RequestMapping(value="/{msName}", method = RequestMethod.GET)
     public ResponseEntity<MicroService> getMicroServiceByName(@PathVariable("msName") String msName){
 
@@ -46,6 +53,7 @@ public class MicroServiceController {
         }
     }
 
+    @ApiOperation(value = "Add a MicroService")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity addMicroService(@Valid @RequestBody MicroService ms){
 
