@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.validation.Valid;
 
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @RequestMapping(value = "/v1/microservices")
 public class MicroServiceController {
 
-    private static final Logger logger = LogManager.getLogger(MicroServiceController.class);
+    private final static Log logger = LogFactory.getLog(MicroServiceController.class);
 
     @Autowired
     IMsService msService;
@@ -26,11 +26,10 @@ public class MicroServiceController {
     public  ResponseEntity<FindResultResponse> getMicroServices(@RequestParam(value = "pageNum")Integer pageNum,
                                                                 @RequestParam(value = "pageSize")Integer pageSize){
 
-        logger.info("Get all microservices:" + "pageNum=" + pageNum + ", pageSize=" + pageSize);
-        FindResultResponse resultResponse = msService.findPageAble(pageNum,pageSize);
+        FindResultResponse resultResponse = msService.findPageAble(pageNum, pageSize);
 
+        logger.info(String.format("Get all microservices:pageNum=%s, pageSize=%s", pageNum, pageSize));
 
-        logger.info("Get microServices succeed!");
         return new ResponseEntity(resultResponse, HttpStatus.OK);
     }
 
@@ -50,7 +49,7 @@ public class MicroServiceController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity addMicroService(@Valid @RequestBody MicroService ms){
 
-        logger.info("Add new microservice:{}", ms.toString());
+        logger.info(String.format("Add new microservice:%s", ms.toString()));
 
         int c = msService.add(ms);
         if (c == 1){
@@ -62,8 +61,8 @@ public class MicroServiceController {
 
     @RequestMapping(value = "/{msName}", method = RequestMethod.PUT)
     public ResponseEntity updateMicroService(@Valid @RequestBody MicroService ms){
+        logger.info(String.format("Update microservice:%s", ms.toString()));
 
-        logger.info("Update microservice:{}", ms.toString());
         int c = msService.update(ms);
         if (c == 1){
             return new ResponseEntity(HttpStatus.OK);

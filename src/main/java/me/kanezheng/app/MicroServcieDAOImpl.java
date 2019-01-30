@@ -13,8 +13,8 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
 
     @Override
     public int add(MicroService ms){
-        String sql = "INSERT INTO MicroService (name, team, maintainer, description, " +
-                     "codelanguage, isrestwebservice, serviceport) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO msmaintain_tbl (msName, msTeam, msMaintainer, msDesc, " +
+                     "codeLang, bIsRestWS, servicePort) VALUES (?,?,?,?,?,?,?)";
         Object args[] = {ms.getMsName(),ms.getMsTeam(),ms.getMsMaintainer(),ms.getMsDesc(),
                          ms.getCodeLang(),ms.getbIsRestWS(),ms.getServicePort()};
 
@@ -23,8 +23,8 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
 
     @Override
     public int update(MicroService ms){
-        String sql = "UPDATE MicroService SET team=?,maintainer=?,description=?,codelanguage=?," +
-                     "isrestwebservice=?,serviceport=?";
+        String sql = "UPDATE msmaintain_tbl SET msTeam=?, msMaintainer=?, msDesc=?, codeLang=?," +
+                     "bIsRestWS=?, servicePort=?";
         Object args[] = {ms.getMsTeam(), ms.getMsMaintainer(), ms.getMsDesc(),ms.getCodeLang(),
                          ms.getbIsRestWS(), ms.getServicePort()};
         return jdbcTemplate.update(sql, args);
@@ -32,7 +32,7 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
 
     @Override
     public int delete(String msName){
-        String sql = "DELETE FROM MicroService WHERE name=?";
+        String sql = "DELETE FROM msmaintain_tbl WHERE msName=?";
         Object args[] = {msName};
         return jdbcTemplate.update(sql, args);
     }
@@ -40,7 +40,7 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
     @Override
     public MicroService findMicroServiceByName(String msName){
 
-        String sql = "SELECT * FROM MicroService WHERE name=";
+        String sql = "SELECT * FROM msmaintain_tbl WHERE msName=";
 
         StringBuilder strsql=new StringBuilder(sql);
         strsql.append("'");
@@ -55,17 +55,17 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
         }else {
             Map rowMap = (Map) rows.get(0);
             MicroService ms = new MicroService();
-            ms.setMsName((String) rowMap.get("name"));
-            ms.setMsTeam((String) rowMap.get("team"));
-            ms.setMsMaintainer((String) rowMap.get("maintainer"));
-            ms.setMsDesc((String) rowMap.get("description"));
-            ms.setCodeLang((String) rowMap.get("codelanguage"));
+            ms.setMsName((String) rowMap.get("msName"));
+            ms.setMsTeam((String) rowMap.get("msTeam"));
+            ms.setMsMaintainer((String) rowMap.get("msMaintainer"));
+            ms.setMsDesc((String) rowMap.get("msDesc"));
+            ms.setCodeLang((String) rowMap.get("codeLang"));
 
-            Boolean bIsRestWS = (Boolean) rowMap.get("isrestwebservice");
+            Boolean bIsRestWS = (Boolean) rowMap.get("bIsRestWS");
             ms.setbIsRestWS(bIsRestWS);
 
             if(bIsRestWS){
-                ms.setServicePort((int) rowMap.get("serviceport"));
+                ms.setServicePort((int) rowMap.get("servicePort"));
             }else {
                 ms.setServicePort(-1);
             }
@@ -78,14 +78,14 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
     public FindResultResponse findPageAble (int pageNum, int pageSize) {
 
         /* 查询总数 */
-        String sql = "SELECT COUNT(*) FROM MicroService";
+        String sql = "SELECT COUNT(*) FROM msmaintain_tbl";
         int totalCount = jdbcTemplate.queryForObject(sql, Integer.class);
 
         /* 基于当前的pageSize计算出总页数 */
         int totalPageNum = (int)Math.ceil((double)totalCount / (double)pageSize);
 
         /* 用StringBuilder拼装分页查询sql语句 */
-        StringBuilder sqlSb = new StringBuilder("SELECT * FROM MicroService LIMIT ");
+        StringBuilder sqlSb = new StringBuilder("SELECT * FROM msmaintain_tbl LIMIT ");
         int offSet = (pageNum - 1) * pageSize;
         sqlSb.append(offSet);
         sqlSb.append(",");
@@ -98,17 +98,17 @@ public class MicroServcieDAOImpl implements IMicroServiceDAO{
         {
             Map rowMap = (Map) item;
             MicroService ms = new MicroService();
-            ms.setMsName((String) rowMap.get("name"));
-            ms.setMsTeam((String) rowMap.get("team"));
-            ms.setMsMaintainer((String) rowMap.get("maintainer"));
-            ms.setMsDesc((String) rowMap.get("description"));
-            ms.setCodeLang((String) rowMap.get("codelanguage"));
+            ms.setMsName((String) rowMap.get("msName"));
+            ms.setMsTeam((String) rowMap.get("msTeam"));
+            ms.setMsMaintainer((String) rowMap.get("msMaintainer"));
+            ms.setMsDesc((String) rowMap.get("msDesc"));
+            ms.setCodeLang((String) rowMap.get("codeLang"));
 
-            Boolean bIsRestWS = (Boolean) rowMap.get("isrestwebservice");
+            Boolean bIsRestWS = (Boolean) rowMap.get("bIsRestWS");
             ms.setbIsRestWS(bIsRestWS);
 
             if(bIsRestWS){
-                Number num = (Number)rowMap.get("serviceport");
+                Number num = (Number)rowMap.get("servicePort");
                 ms.setServicePort(num.intValue());
             }else {
                 ms.setServicePort(-1);

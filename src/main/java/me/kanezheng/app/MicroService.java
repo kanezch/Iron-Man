@@ -1,7 +1,5 @@
 package me.kanezheng.app;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,6 +28,9 @@ public class MicroService {
     @NotNull (message = "参数bIsRestWS不能为空")
     private Boolean bIsRestWS;
     private Integer servicePort;
+
+    public MicroService() {
+    }
 
     public String getMsName() {
         return msName;
